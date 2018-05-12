@@ -16,6 +16,18 @@ class Temperaturen  {
                 return $userRows;
             }
         }
+
+	public function getTemperaturenVandaag() {
+	       /*$stmt = $this->db->prepare("SELECT * FROM Log WHERE `Temperatuur_datum` >= CURDATE()");*/
+	$stmt = $this->db->prepare("SELECT * FROM Log WHERE Temperatuur_datum >= NOW() - INTERVAL 1 DAY");
+       $stmt->execute();
+       $userRows=$stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($stmt->rowCount() > 0)
+            {
+                return $userRows;
+            }
+        }
+
 }
 
 
