@@ -1,21 +1,3 @@
-void SerialRead()
-{
-    //Create a local message string and initialize each loop
-  String message = "";
-  
-  while (HC12.available()) // If HC-12 has data
-  {        
-    message += HC12.readString();    
-  }
-
-  //Check if new message has been received
-  if (message != "")
-  {
-    Serial.println("received: " + message);
-    ReadMessage(message);
-  }
-}
-
 
 void ReadMessage(String message)
 {
