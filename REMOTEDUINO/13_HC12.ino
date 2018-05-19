@@ -37,7 +37,7 @@ class HC12
       String message = "";      
       while (_port->available())
       {
-        message += _port->readString();
+        message += _port->readString();        
       }
       return message;
     }

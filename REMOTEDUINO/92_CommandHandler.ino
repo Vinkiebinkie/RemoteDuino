@@ -1,33 +1,32 @@
+/*Message has following layout
+ *DeviceName/Command 
+ */
+#define SEPERATOR_CHAR '/'
 
-void ReadMessage(String message)
+void ReadMessage (String message)
 {
-  String _command = "";
-  int _index = message.indexOf(DEVICENAME);  
-  
-  //first filter out the device name
-  if (_index >= 0)
-  {
-    _index += sizeof(DEVICENAME) - 1;
-    _command = message.substring(_index);    
-  }
-  else
-  {
-    //If no message for this device received -> return
+  if (message == "")
     return;
-  }
   
-  if ((_command.indexOf(GETTEMP) >= 0))
-  {    
-    SerialWrite(GetTemperature());
-  }
-  else if ((_command.indexOf(GETUS1) >= 0))
+  String deviceName;
+  int index;
+  String tempString = message;
+
+  if (tempString.indexOf(SEPERATOR_CHAR) > 0)
+  {   
+    index = tempString.indexOf(SEPERATOR_CHAR); 
+    deviceName = tempString.substring(0, index);   
+    tempString = tempString.substring(index+1);       
+  } 
+
+  for (int i = 0; i < 5; i++)
   {
-    SerialWrite(GetUS1());
+    if (deviceName == Sensors[i]->GetDeviceName())
+    {
+      String response = Sensors[i]->HandleCommand(tempString);
+      if (response != "");
+        ServerComm->Send(response);
+    }
   }
-  else if ((_command.indexOf(OUTPUT1TOGGLE) >= 0))
-  {    
-    ToggleOutput1();
-    SerialWrite("ToggledOK");
-  }
-  
 }
+ 

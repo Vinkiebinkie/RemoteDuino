@@ -2,31 +2,31 @@
 
 #define I2CADDR_DEFAULT 0x18
 
-class MCP9808
+class MCP9808: public Sensor
 {
   private:
-    String _deviceName;
     uint8_t _I2CAddr;
     bool _fahrenheit;
-    bool _powerSave = false;
-    bool _sensorFound = true;
+    bool _powerSave = false;    
     Adafruit_MCP9808 _sensor = Adafruit_MCP9808();
 
   public:
     MCP9808 (String deviceName, uint8_t I2CAddr = I2CADDR_DEFAULT, bool fahrenheit = false)
     {
-      _deviceName = deviceName;
+      SetDeviceName(deviceName);
       _I2CAddr = I2CAddr;
       _fahrenheit = fahrenheit;   
 
       //Check if sensor found
-      if (!_sensor.begin(I2CAddr))
-        delete this;      
+      if (!_sensor.begin())      
+        delete this;         
     }
 
-    String GetName ()
+    String HandleCommand(String command)
     {
-      return _deviceName;
+      Serial.println(command);
+      Serial.println("WHASJOWWWEOOWEOWOE" );
+      return String(GetTemperature());
     }
 
     bool PowerSaveEnabled ()
@@ -51,10 +51,7 @@ class MCP9808
       if (_powerSave)
         _sensor.wake();
 
-      if (_fahrenheit)
-        _sensor.readTempF();
-      else
-        _sensor.readTempC();
+      temperature = _sensor.readTempC();
 
       if (_powerSave)
         _sensor.shutdown();
