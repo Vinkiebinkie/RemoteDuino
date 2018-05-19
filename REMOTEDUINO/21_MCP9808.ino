@@ -1,6 +1,7 @@
 #include "Adafruit_MCP9808.h"
 
 #define I2CADDR_DEFAULT 0x18
+#define F_GETTEMP "GETTEMP"
 
 class MCP9808: public Sensor
 {
@@ -24,9 +25,11 @@ class MCP9808: public Sensor
 
     String HandleCommand(String command)
     {
-      Serial.println(command);
-      Serial.println("WHASJOWWWEOOWEOWOE" );
-      return String(GetTemperature());
+      //Serial.println(command);
+      if (command.indexOf(F_GETTEMP)>= 0)
+        return String(GetTemperature());
+
+      return "";
     }
 
     bool PowerSaveEnabled ()
