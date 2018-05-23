@@ -7,50 +7,40 @@
 
 ### Program layout
 
-#### REMOTEDUINO
+#### 13_HC12
 
-Configuration is done on the basis of defines. The configuration is split in different sections:
+HC_12 serial port module class, used for (serial) communication with the Raspberry Pi.
 
-- Pin connections; these are the electrical connections to the Arduino (Digital pins)
-- Communication settings; baudrates of the serial communication
-- Settings; the device name and enabling of certain functions
-- Functions; naming of the functions, this is used in the communication as commands from the slave
+#### 20_Sensor
 
-#### 10_Functions
+Base class used for all sensor classes, this is used to create an array of sensor to easily add sensors to the program.
 
-The different functions used in the program are declared here, this is used for a overview of the functions per program file.
+#### 21_MCP9808
 
-#### 11_Global
+Adafruit I2C digital temperature sensor class.
 
-Includes and global variables.
+#### 22_RW1820
 
-#### 12_Setup
+Rayway International RW1820 Single-Line (onewire) Digital Temperature Sensor. 
+Possibly copatible with the DS18B20.
 
-Setup of  functions required to make stuff work.
+#### 23_US100
 
-#### 13_SerialWrite
+Banana Robotics Ultrasonic Distance Sensor Module.
 
-Writing to the serial interface.
+#### 60_DigitalOutput
 
-#### 14_SerialRead
 
-Reading from the serial interface.
 
-#### 20_MCP9808
+#### 90_Setup
 
-MCP9808 temperature sensor.
+Here the objects are defined.
 
-#### 21_US100
+#### 91_MainLoop
 
-Ultra sone sensor for measuring distance.
+#### 92_CommandHandler
 
-#### 30_DigitalOutput
-
-Digital output control
-
-#### 99_MainLoop
-
-The main loop
+Handles commands received from the Pi.
 
 
 
