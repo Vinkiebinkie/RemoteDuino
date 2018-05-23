@@ -1,7 +1,7 @@
 /*Message has following layout
  *ArduinoName/DeviceName/Command 
  */
-#define SEPERATOR_CHAR '/'
+#define SEPERATOR_CHAR '|'
 #define ARDUINONAME "VINK"
 
 void ReadMessage (String message)
@@ -56,7 +56,7 @@ void ReadMessage (String message)
     {
       String response = Sensors[i]->HandleCommand(tempString);
       if (response != "");
-        ServerComm->Send(response);
+        ServerComm->Send(arduinoName + SEPERATOR_CHAR + deviceName + SEPERATOR_CHAR + response + SEPERATOR_CHAR + Sensors[i]->GetUnit());
     }
   }
 }

@@ -1,7 +1,7 @@
 #include "Adafruit_MCP9808.h"
 
 #define I2CADDR_DEFAULT 0x18
-#define F_GETTEMP "GETTEMP"
+#define MCP_F_GETTEMP "GETTEMP"
 
 class MCP9808: public Sensor
 {
@@ -14,7 +14,8 @@ class MCP9808: public Sensor
   public:
     MCP9808 (String deviceName, uint8_t I2CAddr = I2CADDR_DEFAULT, bool fahrenheit = false)
     {
-      SetDeviceName(deviceName);
+      _unit = "C";
+      _deviceName = deviceName;     
       _I2CAddr = I2CAddr;
       _fahrenheit = fahrenheit;   
 
@@ -26,7 +27,7 @@ class MCP9808: public Sensor
     String HandleCommand(String command)
     {
       //Serial.println(command);
-      if (command.indexOf(F_GETTEMP)>= 0)
+      if (command.indexOf(MCP_F_GETTEMP)>= 0)
         return String(GetTemperature());
 
       return "";

@@ -1,7 +1,7 @@
 /*Message has following layout
  *ArduinoName/DeviceName/Command 
  */
-#define SEPERATOR_CHAR '/'
+#define SEPERATOR_CHAR '|'
 #define ARDUINONAME "VINK"
 
 void ReadMessage (String message)
@@ -9,6 +9,8 @@ void ReadMessage (String message)
   //If no message received return
   if (message == "")
     return;
+
+  Serial.println(message);
   
   String arduinoName;
   String deviceName;
@@ -24,6 +26,9 @@ void ReadMessage (String message)
     tempString = tempString.substring(index+1);       
   } 
 
+  Serial.println("Arduino name:");
+  Serial.println(arduinoName);
+
   //Message not for this Arduino return
   if (arduinoName != ARDUINONAME)
     return;
@@ -38,14 +43,20 @@ void ReadMessage (String message)
     tempString = tempString.substring(index+1);       
   } 
 
+  Serial.println("Device name:");
+  Serial.println(deviceName);
+
   //Find the device with the corresponding name and handle the command
   for (int i = 0; i < S_SENSORCOUNT; i++)
   {
+    Serial.println("Get device name:");
+    Serial.println(Sensors[i]->GetDeviceName());
+    
     if (deviceName == Sensors[i]->GetDeviceName())
     {
       String response = Sensors[i]->HandleCommand(tempString);
       if (response != "");
-        ServerComm->Send(response);
+        ServerComm->Send(arduinoName + SEPERATOR_CHAR + deviceName + SEPERATOR_CHAR + response + SEPERATOR_CHAR + Sensors[i]->GetUnit());
     }
   }
 }

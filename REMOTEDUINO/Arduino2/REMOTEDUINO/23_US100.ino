@@ -11,7 +11,7 @@ class UltraSone: public Sensor
   public:
     UltraSone (String deviceName, uint8_t triggerPin, uint8_t echoPin, int maxDistance = 500)
     {    
-      SetDeviceName(deviceName);
+      _deviceName = deviceName;
       _triggerPin = triggerPin;
       _echoPin = echoPin;
       _maxDistance = maxDistance;

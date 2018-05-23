@@ -14,7 +14,8 @@ class MCP9808: public Sensor
   public:
     MCP9808 (String deviceName, uint8_t I2CAddr = I2CADDR_DEFAULT, bool fahrenheit = false)
     {
-      SetDeviceName(deviceName);
+      _unit = "C";
+      _deviceName = deviceName;     
       _I2CAddr = I2CAddr;
       _fahrenheit = fahrenheit;   
 
