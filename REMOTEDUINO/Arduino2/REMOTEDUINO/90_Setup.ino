@@ -9,7 +9,7 @@ void setup() {
   //Begin serial port (USB)
   Serial.begin(9600); 
 
-  TempSensor = new RW1820("Woonkamer", 10);
+  TempSensor = new RW1820("Zwembad", 10);
   ServerComm = new HC12 (8,9);
 
   Sensors[0] = TempSensor;
