@@ -55,8 +55,10 @@ void ReadMessage (String message)
     if (deviceName == Sensors[i]->GetDeviceName())
     {
       String response = Sensors[i]->HandleCommand(tempString);
-      if (response != "");
+      if (response != "")
+      {
         ServerComm->Send(arduinoName + SEPERATOR_CHAR + deviceName + SEPERATOR_CHAR + response + SEPERATOR_CHAR + Sensors[i]->GetUnit());
+      }
     }
   }
 }
