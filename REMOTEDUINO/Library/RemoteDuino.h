@@ -17,12 +17,13 @@ class RemoteDuino
     private:
         String _deviceName;
         Sensor* _sensors[MAX_SENSORS];
-        HC12* _serverCommunication;               
+        HC12* _serverCommunication; 
+        int _sensorCounter = 0;              
     public:
         RemoteDuino (String deviceName, uint8_t txPin, uint8_t rxPin, uint8_t setPin = 0);
         void SendToServer (String message);
         String ReceiveFromServer ();        
-        void AddSensor(/*Sensor sensor*/);     
+        void AddSensor(Sensor*& sensor);     
         String HandleCommand(String command);
 };
 
