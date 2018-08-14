@@ -1,19 +1,19 @@
 #ifndef SENSOR_H
 #define SENSOR_H
 
-#include <string>
+#include <Arduino.h>
 
 class Sensor
 {
   protected:
-    string _sensorName;
-    string _unit;
+    String _sensorName;
+    String _unit;
     
   public:
-
-    virtual string HandleCommand(string command);
-    string GetUnit ();
-    string GetSensorName ();
+    Sensor(String sensorName) : _sensorName(sensorName){}
+    virtual String SHandleCommand(String command);
+    String GetUnit ();
+    String GetSensorName ();
 };
 
 #endif

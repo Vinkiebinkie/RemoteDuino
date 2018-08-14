@@ -1,17 +1,17 @@
 #include "Sensor.h"
 
-virtual string Sensor::HandleCommand(string command)
+String Sensor::SHandleCommand(String command)
 {
-
+    return "EMPTY";
 }
 
-string Sensor::GetUnit()
+String Sensor::GetUnit()
 {
     return Sensor::_unit;
 }
 
-string Sensor::GetSensorName()
-{
+String Sensor::GetSensorName()
+{    
     return Sensor::_sensorName;
 }
 

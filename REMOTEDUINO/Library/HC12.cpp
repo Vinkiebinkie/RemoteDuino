@@ -14,20 +14,20 @@ HC12::HC12 (uint8_t txPin, uint8_t rxPin, uint8_t setPin = 0)
     digitalWrite(HC12::_setPin, HIGH);
     }       
     
-    HC12::_port->begin(PORTBAUDRATE);
+    //HC12::_port->begin(PORTBAUDRATE);
 }
 
-void HC12::Send (string message)
+void HC12::Send (String message)
 {
     HC12::_port->println(message);    
 }
 
-string HC12::Receive ()
+String HC12::Receive ()
 {
-    string message = "";      
+    String message = "";      
     while (HC12::_port->available())
     {
-    message += HC12::_port->readstring();        
+        message = message + (char)HC12::_port->read();        
     }
     return message;
 }
